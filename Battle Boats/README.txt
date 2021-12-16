@@ -1,5 +1,4 @@
 Created By Sam Williams
-StudentID: WILL6673, 5588187
 Purpose: CSci 1933 Project 2, BattleBoats! :-O
 
 
