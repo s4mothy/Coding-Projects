@@ -1,4 +1,5 @@
 # BUG-0 PATHFINDING ALGORITHM
+
 ## REQUIREMENTS
 
 Before running this algorithm, the full desktop version of ROS Noetic must be installed on a stable linux distribution.
@@ -6,7 +7,7 @@ Python 3 is also required. This software was designed and run on a machine runni
 
 ## HOW TO RUN
 
-To run the bug-0 path-finding algorithm, first add the contents of the project zip directory to the src directory of your catkin workspace.
+To run the bug-0 path-finding algorithm, first add the contents of the project directory to the src directory of your catkin workspace.
 
 This will include:
 ```
@@ -41,11 +42,12 @@ source devel/setup.bash
 rosrun bug0_alg bug0_alg.py
 ```
 
-The software will request a set of target coordinates; these must be in the format ```(target_x, target_y, target_theta)```. The parentheses and spaces are not required, but the commas are. 
+The software will request a set of target coordinates; these must be in the format ```(target_x, target_y, target_theta)```. The parentheses and spaces are not required, but the commas are.
 
 <br>
 
 ## HOW IT WORKS
+
 The bug0 algorithm uses the ```/base_pose_ground_truth``` ros topic within a minimal range and distance to look for obstacles, while travelling in the direction of the goal when it cannot find any obstacles in front of it. When it encounters an obstacle, it travels to the left around the obstacle until it cannot see any obstacles blocking the path directly to the goal. This application does this by moving away from obstacle when the front sensor is too close, towards the obstacle when a right sensor becomes too far away, and forward when the right sensor is in a sweet spot. The follow are constants that can be altered in the code as desired:
 ```
 bug0_alg.py
@@ -65,4 +67,5 @@ bug_position.py
 <br>
 
 ## KNOWN BUGS
+
 The current iteration generates some error in the final target x and y coordinates when rotating to the target theta orientation. This is because the robot moves forward while rotating, a decision made both because the actual robot moves in this way and to avoid a common corner case causing the robot to rotate back and forth indefinitely upon reaching an obstacle. As a result, the target theta can be disabled if more accuracy in the final x and y coordinates is required. This is done by changing the constant USE_TARGET_THETA in the main bug0_alg.py file to False and running as normal. 
